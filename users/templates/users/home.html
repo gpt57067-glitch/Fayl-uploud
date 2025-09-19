@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="main-content">
+    <div class="search-bar">
+        <form method="get" action="{% url 'ads:search_results' %}">
+            <input type="text" placeholder="Axtarış..." name="q" class="search-input">
+            <button type="submit" class="search-button">Axtar</button>
+        </form>
+    </div>
+</main>
+
+<div class="categories-section">
+    <h2>Kateqoriyalar</h2>
+    <div class="category-grid">
+        {% for category in categories %}
+        <a href="{% url 'ads:ad_list_by_category' category.name %}" class="category-item">
+            {% if category.icon %}
+            <img src="{{ category.icon.url }}" alt="{{ category.name }}">
+            {% else %}
+            <img src="{% static 'images/default_category.png' %}" alt="{{ category.name }}">
+            {% endif %}
+            <p>{{ category.name }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="ad-list-grid">
+    <h2>Ən Son Elanlar</h2>
+    <div class="ad-grid">
+        {% if latest_ads %}
+            {% for ad in latest_ads %}
+            <div class="ad-item {% if ad.is_premium %}premium-ad{% endif %}">
+                {% if ad.images.first %}
+                <a href="{% url 'ads:ad_detail' ad.pk %}">
+                    <img src="{{ ad.images.first.image.url }}" alt="{{ ad.title }}" class="ad-image">
+                </a>
+                {% else %}
+                <a href="{% url 'ads:ad_detail' ad.pk %}">
+                    <img src="{% static 'images/default_ad.png' %}" alt="Default Image" class="ad-image">
+                </a>
+                {% endif %}
+                <div class="ad-info">
+                    <h3>
+                        <a href="{% url 'ads:ad_detail' ad.pk %}">{{ ad.title }}</a>
+                        {% if ad.is_premium %}
+                            <span class="premium-badge"> 👑Premium</span>
+                        {% endif %}
+                    </h3>
+                    <p class="ad-price">{{ ad.price }} AZN</p>
+                    <p class="ad-city">{{ ad.location }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p>Hələ heç bir elan yoxdur.</p>
+        {% endif %}
+    </div>
+</div>
+</main>
+
+<style>
+/* Premium elanlar üçün xüsusi dizayn */
+.premium-ad {
+    border: 2px solid gold;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.premium-badge {
+    color: gold;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+</style>
+{% endblock %}

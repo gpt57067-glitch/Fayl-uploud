@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="main-content">
+    <div class="auth-container">
+        <div class="auth-tabs">
+            <a href="{% url 'users:user_login' %}" class="tab-item">Giriş Yap</a>
+            <a href="{% url 'users:register' %}" class="tab-item active">Üye Ol</a>
+        </div>
+        
+        <div class="form-section">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-row">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="error-message">{{ field.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="submit-button">Qeydiyyatdan Keç</button>
+            </form>
+            <div class="register-link">
+                <p>Artıq hesabın var? <a href="{% url 'users:user_login' %}">Giriş Yap</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

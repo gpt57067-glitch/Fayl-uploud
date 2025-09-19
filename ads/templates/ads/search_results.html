@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="search-results-container">
+    <h2>Axtarış Nəticələri: "{{ query }}"</h2>
+
+    <!-- Axtarış formu -->
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Elan axtar..." value="{{ query }}">
+        <button type="submit">Axtar</button>
+    </form>
+
+    {% if ads %}
+        <div class="ad-list">
+            {% for ad in ads %}
+                <div class="ad-item">
+                    <h3><a href="{% url 'ads:ad_detail' ad.id %}">{{ ad.title }}</a></h3>
+                    <p>{{ ad.description|truncatechars:150 }}</p>
+                    <p class="price">Qiymət: {{ ad.price }} AZN</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-results">Axtarışınıza uyğun elan tapılmadı.</p>
+    {% endif %}
+</div>
+
+<style>
+/* Konteyner */
+.search-results-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Başlıq */
+.search-results-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Axtarış formu */
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px 15px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.search-form input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    outline: none;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Ad listesi */
+.ad-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Her bir elan */
+.ad-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ad-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.ad-item h3 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+}
+
+.ad-item h3 a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.ad-item h3 a:hover {
+    color: #0056b3;
+}
+
+.ad-item p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.ad-item .price {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.no-results {
+    text-align: center;
+    color: #888;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+/* Mobil uyumlu */
+@media (max-width: 600px) {
+    .search-results-container {
+        padding: 15px;
+        margin: 20px auto;
+    }
+
+    .ad-item h3 {
+        font-size: 18px;
+    }
+
+    .ad-item p {
+        font-size: 14px;
+    }
+
+    .search-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-form input[type="text"],
+    .search-form button {
+        width: 100%;
+    }
+}
+</style>
+{% endblock %}

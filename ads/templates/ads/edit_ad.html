@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="edit-ad-container">
+    <h2>Elanı redaktə et</h2>
+    <form method="post" enctype="multipart/form-data" class="edit-ad-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-save">Yadda saxla</button>
+    </form>
+</div>
+
+<style>
+/* Konteyner */
+.edit-ad-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Başlıq */
+.edit-ad-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+/* Form inputları */
+.edit-ad-form p {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.edit-ad-form label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
+}
+
+.edit-ad-form input[type="text"],
+.edit-ad-form input[type="number"],
+.edit-ad-form input[type="file"],
+.edit-ad-form textarea,
+.edit-ad-form select {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.edit-ad-form input:focus,
+.edit-ad-form textarea:focus,
+.edit-ad-form select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    outline: none;
+}
+
+/* Submit düyməsi */
+.btn-save {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-save:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Mobil uyumlu */
+@media (max-width: 600px) {
+    .edit-ad-container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .edit-ad-container h2 {
+        font-size: 22px;
+    }
+
+    .btn-save {
+        font-size: 15px;
+        padding: 10px;
+    }
+}
+</style>
+{% endblock %}

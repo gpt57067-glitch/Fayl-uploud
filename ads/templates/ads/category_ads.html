@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="main-content">
+    <h2>'{{ category.name }}' Kateqoriyasındakı Elanlar</h2>
+    
+    <div class="ad-list grid">
+        {% if ads %}
+            {% for ad in ads %}
+                <div class="ad-item">
+                    {% if ad.image %}
+                    <a href="{% url 'ads:ad_detail' ad.pk %}">
+                        <img src="{{ ad.image.url }}" alt="{{ ad.title }}" class="ad-image">
+                    </a>
+                    {% else %}
+                    <a href="{% url 'ads:ad_detail' ad.pk %}">
+                        <img src="{% static 'images/default_ad.png' %}" alt="Default Image" class="ad-image">
+                    </a>
+                    {% endif %}
+                    
+                    <h3><a href="{% url 'ads:ad_detail' ad.pk %}">{{ ad.title }}</a></h3>
+                    <p class="ad-price">{{ ad.price }} AZN</p>
+                    <p class="ad-city">{{ ad.city }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Bu kateqoriyada hələ heç bir elan yoxdur.</p>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

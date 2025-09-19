@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elanı Sil</title>
+    <style>
+        /* CSS kodunuz buraya əlavə olunur */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0; /* Saytın yuxarı hissəsindəki həddən artıq boşluğu aradan qaldırır */
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Tam ekran hündürlüyünü təmin edir */
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%; /* Mobil cihazlarda daha yaxşı uyğunlaşma üçün */
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #dc3545; /* Qırmızı rəng */
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px; /* Daha oxunaqlı font ölçüsü */
+            margin-bottom: 20px;
+            line-height: 1.6; /* Sətirlər arası məsafəni artırır */
+        }
+
+        p strong {
+            color: #000;
+        }
+
+        .ad-info {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px; /* Elan məlumatı üçün daha kiçik font ölçüsü */
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Düymələr arasında boşluq */
+            flex-wrap: wrap; /* Ehtiyac olduqda düymələrin alt alta gəlməsini təmin edir */
+        }
+
+        .btn-delete,
+        .btn-cancel {
+            background-color: #dc3545;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Linklər üçün alt xətti aradan qaldırır */
+            display: inline-block; /* Fleks konteynerdə düzgün göstərilməsi üçün */
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+
+        /* Profil səhifəsi üçün əlavə CSS (əvvəlki kodunuzdan) */
+        .profile-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .profile-section h3 {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #555;
+            text-align: left; /* Başlığı sola hizalayır */
+        }
+
+        .profile-info p,
+        .user-ads p {
+            text-align: left; /* Mətnləri sola hizalayır */
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .user-ads ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .user-ads li {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Kiçik ekranlarda elementlərin alt alta gəlməsi */
+        }
+
+        .user-ads li:last-child {
+            margin-bottom: 0;
+        }
+
+        .ad-title-price {
+            flex-grow: 1;
+            margin-right: 15px; /* Elan başlığı ilə düymələr arasında boşluq */
+        }
+
+        .ad-title-price h4 a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 18px;
+            text-align: left; /* Başlığı sola hizalayır */
+        }
+
+        .ad-title-price h4 a:hover {
+            text-decoration: underline;
+        }
+
+        .ad-actions a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 14px; /* Əməliyyat düymələri üçün kiçik ölçü */
+        }
+
+        .edit-btn {
+            background-color: #28a745;
+        }
+
+        .edit-btn:hover {
+            background-color: #218838;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        .create-ad-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .create-ad-link:hover {
+            background-color: #0056b3;
+        }
+
+        /* Media Queries: Mobil uyğunluq üçün */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 15px;
+            }
+
+            .btn-container {
+                flex-direction: column; /* Düymələri alt alta göstərir */
+                align-items: center;
+            }
+
+            .btn-delete,
+            .btn-cancel {
+                width: 80%; /* Düymələri genişləndirir */
+                margin-bottom: 10px; /* Alt düymə ilə aralıq */
+            }
+
+            .user-ads li {
+                flex-direction: column; /* Elan detallarını alt alta göstərir */
+                align-items: flex-start; /* Sola hizalayır */
+            }
+
+            .ad-title-price {
+                margin-right: 0;
+                margin-bottom: 10px; /* Elan başlığı ilə əməliyyat düymələri arasında aralıq */
+                width: 100%;
+            }
+
+            .ad-actions {
+                width: 100%;
+                text-align: right; /* Əməliyyat düymələrini sağa hizalayır */
+            }
+
+            .ad-actions a {
+                margin-left: 0;
+                margin-right: 5px; /* Düymələr arasında kiçik aralıq */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}
+            <h2>Elanı silmək istədiyinizə əminsiniz?</h2>
+            <div class="ad-info">
+                <p>"<strong>{{ ad.title }}</strong>" elanını silmək istəyirsiniz?</p>
+            </div>
+            <div class="btn-container">
+                <form method="post" style="display: inline;"> {# Formu düymə kimi göstərmək üçün inline edirik #}
+                    {% csrf_token %}
+                    <button type="submit" class="btn-delete">Bəli, sil</button>
+                </form>
+                <a href="{% url 'users:profile' %}" class="btn-cancel">Xeyr, geri qayıt</a>
+            </div>
+        {% endblock %}
+    </div>
+</body>
+</html>

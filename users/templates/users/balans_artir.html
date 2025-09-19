@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .container {
+        max-width: 600px;
+        margin: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+    .alert-info {
+        background-color: #e7f3fe;
+        border-color: #b3d8fd;
+        color: #31708f;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        font-size: 1rem;
+    }
+    .card {
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        background-color: #fff;
+    }
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 8px;
+        display: block;
+        color: #555;
+    }
+    input[type="text"], input[type="file"], input[type="number"] {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+    input[type="text"]:focus, input[type="file"]:focus, input[type="number"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 8px;
+        background-color: #007bff;
+        border: none;
+        transition: background-color 0.3s;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="mb-4">💳 Balans artırma</h2>
+
+    <div class="alert alert-info">
+        Balans artırmaq üçün aşağıdakı karta ödəniş edin:
+        <br>
+        <strong>{{ card_number }}</strong>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_amount" class="form-label">Məbləğ (AZN)</label>
+            {{ form.amount }}
+        </div>
+        <div class="mb-3">
+            <label for="id_screenshot" class="form-label">Ödəniş qəbzinin şəkli</label>
+            {{ form.screenshot }}
+        </div>
+        <button type="submit" class="btn btn-primary">Göndər</button>
+    </form>
+</div>
+{% endblock %}

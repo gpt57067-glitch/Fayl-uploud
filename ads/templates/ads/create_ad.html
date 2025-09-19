@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Base styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    /* Ad creation form container styles */
+    .ad-form-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 30px; /* Increased padding */
+        background-color: #fff;
+        border-radius: 10px; /* Slightly more rounded corners */
+        box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* Softer shadow */
+        text-align: center;
+    }
+
+    .ad-form-container h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 35px; /* Adjusted margin */
+        font-size: 2.2em; /* Larger heading */
+        font-weight: bold;
+    }
+
+    /* Form section styles */
+    .form-section {
+        margin-bottom: 30px; /* Increased margin */
+        text-align: left; /* Align form elements to the left */
+        border: 1px solid #e0e0e0; /* Light border for sections */
+        border-radius: 8px;
+        padding: 25px; /* Increased padding */
+        background-color: #fdfdfd; /* Slightly off-white background */
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inset shadow for depth */
+    }
+
+    .form-section h3 {
+        border-bottom: 2px solid #ff6600; /* Orange underline for section titles */
+        padding-bottom: 12px;
+        margin-bottom: 20px; /* Adjusted margin */
+        color: #e65c00; /* Darker orange */
+        font-size: 1.5em; /* Larger section titles */
+        font-weight: 600;
+    }
+
+    /* Form group and row styles */
+    .form-row, .form-group {
+        margin-bottom: 20px; /* Consistent margin for rows/groups */
+    }
+
+    .form-group label,
+    .form-row label { /* Target labels within form-row as well */
+        display: block;
+        margin-bottom: 8px; /* Adjusted margin */
+        font-weight: bold;
+        color: #444;
+        font-size: 1.1em; /* Slightly larger labels */
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="number"],
+    .form-group textarea,
+    .form-group select,
+    .form-row input[type="file"] { /* Target file input here */
+        width: 100%;
+        padding: 12px; /* Increased padding */
+        border: 1px solid #ccc; /* Softer border color */
+        border-radius: 6px; /* Slightly more rounded */
+        font-size: 16px;
+        box-sizing: border-box; /* Ensures padding doesn't affect width */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus,
+    .form-row input[type="file"]:focus {
+        border-color: #ff6600; /* Orange border on focus */
+        box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2); /* Orange glow */
+        outline: none; /* Remove default outline */
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 150px; /* Increased min-height for textarea */
+    }
+
+    /* Checkbox group styles */
+    .checkbox-group {
+        display: flex;
+        justify-content: flex-start; /* Align checkboxes to the left */
+        gap: 20px; /* Space between checkboxes */
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        margin-top: 10px;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1em;
+        color: #444;
+        margin-bottom: 0; /* Reset margin */
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        margin-right: 8px;
+        width: 18px; /* Slightly larger checkbox */
+        height: 18px;
+        accent-color: #ff6600; /* Orange color for checkboxes */
+    }
+
+    /* File input style */
+    .form-row input[type="file"] {
+        background-color: #f9f9f9; /* Light background for file input */
+        padding: 12px 15px; /* Adjusted padding for file input */
+    }
+
+    /* Submit button styles */
+    .submit-button {
+        display: block;
+        width: 100%;
+        padding: 15px 25px; /* Increased padding */
+        font-size: 1.1em; /* Larger font size */
+        color: #fff;
+        background-color: #ff6600; /* Orange color */
+        border: none;
+        border-radius: 8px; /* More rounded */
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for subtle press effect */
+        font-weight: bold;
+        text-transform: uppercase; /* Uppercase text */
+        letter-spacing: 0.5px;
+    }
+
+    .submit-button:hover {
+        background-color: #e65c00; /* Darker orange on hover */
+        transform: translateY(-2px); /* Slight lift on hover */
+    }
+
+    .submit-button:active {
+        transform: translateY(1px); /* Slight press effect */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .ad-form-container {
+            margin: 20px auto; /* Reduced margin on smaller screens */
+            padding: 25px; /* Reduced padding */
+            width: 95%; /* Use more width on smaller screens */
+        }
+
+        .ad-form-container h2 {
+            font-size: 1.8em; /* Smaller heading on mobile */
+            margin-bottom: 25px;
+        }
+
+        .form-section {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-section h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group {
+            flex-direction: column; /* Stack checkboxes vertically */
+            gap: 10px;
+        }
+
+        .submit-button {
+            font-size: 1em;
+            padding: 12px 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .ad-form-container {
+            padding: 15px;
+            margin: 10px auto;
+        }
+        .ad-form-container h2 {
+            font-size: 1.5em;
+        }
+        .form-section h3 {
+            font-size: 1.1em;
+        }
+        .form-group input, .form-group textarea, .form-group select, .form-row input[type="file"] {
+            padding: 10px;
+            font-size: 14px;
+        }
+        .submit-button {
+            font-size: 1em;
+            padding: 10px 15px;
+        }
+    }
+</style>
+
+<main class="main-content">
+    <div class="ad-form-container">
+        <h2>Yeni elan</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-section">
+                <h3>Elan Detalları</h3>
+                <div class="form-row">
+                    {{ form.category.label_tag }}
+                    {{ form.category }}
+                </div>
+                <div class="form-row">
+                    {{ form.ad_type.label_tag }}
+                    {{ form.ad_type }}
+                </div>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">{{ form.is_new }} {{ form.is_new.label }}</label>
+                    <label class="checkbox-label">{{ form.is_delivery }} {{ form.is_delivery.label }}</label>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Şəhər və Qiymət</h3>
+                <div class="form-row">
+                    {{ form.city.label_tag }}
+                    {{ form.city }}
+                </div>
+                <div class="form-row">
+                    {{ form.price.label_tag }}
+                    {{ form.price }}
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Elanın başlığı və məzmunu</h3>
+                <div class="form-row">
+                    {{ form.title.label_tag }}
+                    {{ form.title }}
+                </div>
+                <div class="form-row">
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                </div>
+            </div>
+            
+<div class="form-section">
+                <h3>Şəkillər və Video</h3> <div class="form-row">
+                    <label for="id_images">Şəkillər seçin (Çoxsaylı):</label>
+                    <input type="file" name="images" id="id_images" multiple>
+                </div>
+                <div class="form-row">
+                    {{ form.video_url.label_tag }}
+                    {{ form.video_url }}
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Əlaqə məlumatları</h3>
+                <div class="form-row">
+                    {{ form.contact_number.label_tag }}
+                    {{ form.contact_number }}
+                </div>
+                <div class="form-row">
+                    {{ form.contact_email.label_tag }}
+                    {{ form.contact_email }}
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-button">Elanı Yerləşdir</button>
+        </form>
+    </div>
+</main>
+
+{% endblock %}

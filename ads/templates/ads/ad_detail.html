@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="main-content">
+    <div class="ad-detail-container">
+        <div class="ad-image-gallery">
+            {% if ad.images.all %}
+                {% for ad_image in ad.images.all %}
+                    <img src="{{ ad_image.image.url }}" alt="{{ ad.title }}" class="detail-image">
+                {% endfor %}
+            {% else %}
+                <img src="{% static 'images/default_ad.png' %}" alt="Default Image" class="detail-image">
+            {% endif %}
+        </div>
+
+        <div class="ad-info">
+            <h1>
+                {{ ad.title }}
+                {% if ad.is_premium %}
+                    <span style="color:gold; font-weight:bold; font-size:16px;">⭐ Premium</span>
+                {% endif %}
+            </h1>
+            
+            <p class="category"><strong>Kateqoriya:</strong> {{ ad.category.name }}</p>
+            <p class="price"><strong>Qiymət:</strong> {{ ad.price }} AZN</p>
+            <p class="location"><strong>Şəhər:</strong> {{ ad.location }}</p>
+            
+            <hr>
+            
+            <div class="ad-contact">
+                <h3>Əlaqə Məlumatları</h3>
+                <p><strong>Əlaqə Nömrəsi:</strong> {{ ad.phone_number }}</p>
+                <p><strong>E-poçt:</strong> {{ ad.email }}</p>
+            </div>
+            
+            <hr>
+
+            <div class="ad-description">
+                <h3>Ətraflı</h3>
+                <p>{{ ad.description }}</p>
+            </div>
+
+            <hr>
+
+            <!-- 🔹 Premium Elan Düyməsi -->
+            {% if user.is_authenticated and user == ad.user %}
+                {% if not ad.is_premium %}
+                    <form method="post" action="{% url 'ads:make_premium' ad.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning">
+                            Premium et (3 AZN)
+                        </button>
+                    </form>
+                {% else %}
+                    <p style="color:green; font-weight:bold;">Bu elan artıq Premiumdur ✅</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+<style>
+/* ad_detail.html səhifəsi üçün CSS stilləri */
+
+.ad-detail-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.ad-image-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.detail-image {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.ad-info {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.ad-info h1 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.ad-info h3 {
+    color: #555;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+.ad-info p {
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+.ad-info p strong {
+    color: #444;
+}
+
+.ad-description {
+    margin-top: 20px;
+}
+
+/* Premium butonuna özel stil */
+.btn-warning {
+    background-color: #000000; /* Kırmızımsı turuncu */
+    color: white;
+    padding: 12px 24px; /* Yüksek ve geniş buton */
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover durumu */
+.btn-warning:hover {
+    background-color: #9de550; /* Hoverda biraz daha koyu kırmızı */
+    transform: scale(1.05); /* Butonu büyütme efekti */
+}
+
+/* Active durumu */
+.btn-warning:active {
+    background-color: #d04f45; /* Tıklanmış durumda daha koyu kırmızı */
+    transform: scale(0.98); /* Butonu küçültme efekti */
+}
+
+/* Premium butonu stilini vurgulamak için */
+.btn-warning:focus {
+    outline: none; /* Focus olunca dış kenarlığı kaldır */
+}
+
+/* Mobil görünüş üçün düzəlişlər */
+@media (max-width: 768px) {
+    .ad-detail-container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .ad-info h1 {
+        font-size: 1.5em;
+    }
+}
+</style>
+
+{% endblock %}

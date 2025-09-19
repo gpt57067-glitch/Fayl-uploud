@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game.Az</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+  
+    <style>
+        /* ads/ad_create.html üçün stillər */
+        .ad-create-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ad-create-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .ad-create-form .form-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .ad-create-form .form-section h3 {
+            font-size: 1.2em;
+            color: #555;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .ad-create-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .ad-create-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .ad-create-form input[type="text"],
+        .ad-create-form input[type="number"],
+        .ad-create-form textarea,
+        .ad-create-form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .ad-create-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .ad-create-form .image-form {
+            margin-bottom: 10px;
+        }
+
+        .ad-create-form .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .ad-create-form .submit-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <header class="main-header">
+        <div class="logo">
+            <a href="{% url 'users:home' %}">Game.Az</a>
+        </div>
+        
+
+        <input type="checkbox" id="menu-toggle-checkbox" class="menu-toggle-checkbox">
+        <label for="menu-toggle-checkbox" class="menu-toggle-label">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </label>
+
+        <nav class="nav-links-container">
+            <ul class="nav-links">
+                
+                <li><a href="{% url 'users:home' %}">Ana Səhifə</a></li>
+                
+{% if user.is_authenticated %}
+    <li>💰 Balans: {{ user_balance }} ₼</li>   <!-- Burda balans göstərilir -->
+    <li><a href="{% url 'ads:ad_create' %}">Yeni Elan</a></li>
+    <li><a href="{% url 'users:profile' %}">Profil</a></li>
+    <li><a href="{% url 'users:balans_artir' %}">Balans artir</a></li>
+    <li>
+        <form action="{% url 'users:user_logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="nav-link">Çıxış</button>
+        </form>
+    </li>
+{% else %}
+    <li><a href="{% url 'users:user_login' %}">Daxil Ol</a></li>
+    <li><a href="{% url 'users:register' %}">Qeydiyyat</a></li>
+{% endif %}
+
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+  <div class="footer-top">
+    <div class="footer-columns">
+      <ul>
+        <li><a href="#">Bakı</a></li>
+        <li><a href="#">Sumqayıt</a></li>
+        <li><a href="#">Xırdalan</a></li>
+        <li><a href="#">Gəncə</a></li>
+        <li><a href="#">Quba</a></li>
+        <li><a href="#">Şəki</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Mingəçevir</a></li>
+        <li><a href="#">İsmayıllı</a></li>
+        <li><a href="#">Zaqatala</a></li>
+        <li><a href="#">Qusar</a></li>
+        <li><a href="#">Lənkəran</a></li>
+        <li><a href="#">Şirvan</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Astara</a></li>
+        <li><a href="#">Balakən</a></li>
+        <li><a href="#">Beyləqan</a></li>
+        <li><a href="#">Ağdam</a></li>
+        <li><a href="#">Bərdə</a></li>
+        <li><a href="#">Göyçay</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Şamaxı</a></li>
+        <li><a href="#">Tovuz</a></li>
+        <li><a href="#">Ucar</a></li>
+        <li><a href="#">Zərdab</a></li>
+        <li><a href="#">Yevlax</a></li>
+        <li><a href="#">Qazax</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-middle">
+    <div class="footer-logo">FexriShop</div>
+    <div class="footer-contact">
+      <p>gameaz167@gmail.com</p>
+    </div>
+    <div class="footer-social">
+      <a href="#">Tiktok</a> | 
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <ul>
+      <li><a href="#">Yardım</a></li>
+      <li><a href="#">Layihə haqqında</a></li>
+      <li><a href="#">Qaydalar</a></li>
+      <li><a href="#">Məxfilik siyasəti</a></li>
+    </ul>
+    <p>&copy; 2025 FexriShop. Bütün hüquqlar qorunur.</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: #f9f9fb;
+    color: #4a4a4a;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-top: 40px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .footer-top {
+    padding: 20px 40px;
+  }
+
+  .footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+  }
+
+  .footer-columns ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-columns li {
+    margin: 6px 0;
+  }
+
+  .footer-columns a {
+    text-decoration: none;
+    color: #5a5a7a;
+  }
+
+  .footer-columns a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-middle {
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff6600;
+  }
+
+  .footer-contact p {
+    margin: 3px 0;
+  }
+
+  .footer-social a {
+    margin: 0 5px;
+    color: #5a5a7a;
+    text-decoration: none;
+  }
+
+  .footer-social a:hover {
+    color: #ff6600;
+  }
+
+  .footer-bottom {
+    padding: 15px 40px;
+    text-align: center;
+  }
+
+  .footer-bottom ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .footer-bottom li {
+    margin: 0 10px;
+  }
+
+  .footer-bottom a {
+    color: #5a5a7a;
+    text-decoration: none;
+  }
+
+  .footer-bottom a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+</body>
+
+</html>

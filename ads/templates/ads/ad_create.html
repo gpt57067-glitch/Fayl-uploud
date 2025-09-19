@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container ad-create-container">
+    <h2>Yeni Elan Yarat</h2>
+    <form method="post" enctype="multipart/form-data" class="ad-form">
+        {% csrf_token %}
+
+        <div class="form-section">
+            <h3>Şəhər və qiymət</h3>
+            <div class="form-group">
+                {{ form.location.label_tag }}
+                {{ form.location }}
+            </div>
+            <div class="form-group">
+                {{ form.price.label_tag }}
+                {{ form.price }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="form-section">
+            <h3>Elanın başlığı və məzmunu</h3>
+            <div class="form-group">
+                {{ form.title.label_tag }}
+                {{ form.title }}
+            </div>
+            <div class="form-group">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+            <div class="form-group">
+                {{ form.category.label_tag }}
+                {{ form.category }}
+            </div>
+        </div>
+        
+        <hr>
+        <div class="form-section">
+            <h3>Şəkillər</h3>
+            <div class="form-row">
+                <label for="id_images">Şəkillər seçin (Çoxsaylı):</label>
+                <input type="file" name="images" id="id_images" multiple>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Video URL sahəsi əlavə olundu -->
+     
+        <hr>
+
+        <div class="form-section">
+            <h3>Əlaqə məlumatları</h3>
+            <div class="form-group">
+                {{ form.phone_number.label_tag }}
+                {{ form.phone_number }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+        </div>
+
+        <div class="form-submit">
+            <button type="submit" class="btn-create-ad">Elanı əlavə et</button>
+        </div>
+    </form>
+</div>
+
+<style>
+/* Ümumi konteyner */
+.ad-create-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Başlıqlar */
+.ad-create-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.ad-create-container h3 {
+    margin-bottom: 15px;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* Form bölmələri */
+.form-section {
+    margin-bottom: 25px;
+}
+
+/* Form qrupları */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea,
+.form-group input[type="file"],
+.form-group input[type="url"] {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    outline: none;
+}
+
+/* Submit düyməsi */
+.form-submit {
+    text-align: center;
+}
+
+.btn-create-ad {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-create-ad:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Separator */
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 25px 0;
+}
+</style>
+
+{% endblock %}

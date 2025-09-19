@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Səhifəsi</title>
+    <style>
+        /* Genel Stil Ayarları */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .nav-links-container {
+            background-color: #007bff;
+            padding: 12px 20px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            background-color: #000000;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #000000;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* Profil Bilgileri ve İlanlar Bölümü */
+        .profile-info, .user-ads {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .profile-info h3, .user-ads h3 {
+            border-bottom: 1px solid #000000;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 20px;
+        }
+
+        .profile-info p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .profile-info p strong {
+            color: #000;
+            display: inline-block;
+            min-width: 120px;
+        }
+
+        /* İlan Listesi Stilleri */
+        .user-ads ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ad-item {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ad-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .ad-title-price {
+            flex-grow: 1;
+            min-width: 180px;
+        }
+
+        .ad-title-price h4 {
+            margin: 0 0 5px 0;
+        }
+
+        .ad-title-price h4 a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .ad-title-price h4 a:hover {
+            text-decoration: underline;
+        }
+
+        .ad-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ad-actions a {
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .edit-btn {
+            background-color: #28a745;
+        }
+
+        .edit-btn:hover {
+            background-color: #218838;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Yeni ilan ekle butonu */
+        .create-ad-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .create-ad-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 15px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .create-ad-link a:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            .profile-info p strong {
+                min-width: auto;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .profile-info p {
+                font-size: 15px;
+            }
+
+            .ad-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .ad-title-price {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .ad-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .ad-actions a {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+
+            .create-ad-link a {
+                font-size: 16px;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 20px;
+            }
+
+            .ad-actions a {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+
+            .create-ad-link a {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar əlavə edildi -->
+    <nav class="nav-links-container">
+        <ul class="nav-links">
+            <li><a href="{% url 'users:home' %}">Ana Səhifə</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'ads:ad_create' %}">Yeni Elan</a></li>
+                <li><a href="{% url 'users:profile' %}">Profil</a></li>
+                <li><a href="{% url 'users:balans_artir' %}">Balans artır</a></li>
+                    <form action="{% url 'users:user_logout' %}" method="post" style="display:inline;">
+            {% else %}
+                <li><a href="{% url 'users:login' %}">Giriş</a></li>
+                <li><a href="{% url 'users:register' %}">Qeydiyyat</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Profil Səhifəsi</h2>
+        {% if request.user.is_authenticated %}
+            <div class="profile-info">
+                <h3>Şəxsi məlumatlar</h3>
+                <p><strong>İstifadəçi adı:</strong> {{ request.user.username }}</p>
+                <p><strong>E-poçt:</strong> {{ request.user.email }}</p>
+
+                {% if request.user.userprofile %}
+                    <p><strong>Telefon nömrəsi:</strong> {{ request.user.userprofile.phone_number }}</p>
+                {% endif %}
+            </div>
+
+            <div class="user-ads">
+                <h3>Sizin Elanlarınız</h3>
+                {% if request.user.ad_set.all %}
+                
+                    <ul>
+                        {% for ad in request.user.ad_set.all %}
+                            <li class="ad-item">
+                                <div class="ad-title-price">
+                                    <h4><a href="{% url 'ads:ad_detail' ad.id %}">{{ ad.title }}</a></h4>
+                                    <p>{{ ad.description|truncatechars:50 }}</p>
+                                </div>
+                                <div class="ad-actions">
+                                    <a href="{% url 'ads:edit_ad' ad.id %}" class="edit-btn">Redaktə et</a>
+                                    <a href="{% url 'ads:delete_ad' ad.id %}" class="delete-btn">Sil</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Hələ heç bir elan yaratmamısınız.</p>
+                {% endif %}
+            </div>
+
+            <div class="create-ad-link">
+                <a href="{% url 'ads:ad_create' %}">Yeni elan əlavə et</a>
+            </div>
+
+        {% else %}
+            <p>Zəhmət olmasa <a href="{% url 'login' %}">giriş edin</a> və ya <a href="{% url 'signup' %}">qeydiyyatdan keçin</a>.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
